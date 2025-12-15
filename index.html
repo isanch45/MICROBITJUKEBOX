@@ -15,25 +15,25 @@
             background-color: #f0f0f0; /* Fons clar */
             display: flex;
             justify-content: center;
-            align-items: center; /* Centratge vertical principal */
+            align-items: center; 
             flex-direction: column; /* Organitza els elements verticalment */
             font-family: Arial, sans-serif;
             color: #333;
         }
 
-        /* 1. Estil per al títol */
+        /* 1. Ajust del Títol per al Centratge Visual */
         h2 {
-            margin-bottom: 20px; /* Espai sota el títol */
-            margin-top: 0;
+            margin-bottom: 10px; /* Menys espai sota el títol */
+            margin-top: -50px; /* PUJA EL TÍTOL PER EMPÈNYER EL CONTINGUT CAP AL CENTRE */
             font-size: 2.2em;
             color: #005A9C;
             text-align: center;
         }
 
-        /* 2. Contenidor principal per al simulador */
+        /* 2. Contenidor principal per al simulador (Mida Fixa) */
         .kiosco-container {
-            width: 800px; 
-            height: 600px;
+            width: 750px; /* Reduïm lleugerament l'amplada */
+            height: 560px; /* Reduïm lleugerament l'alçada per al nou contingut */
             
             border: 4px solid #00AAFF; 
             border-radius: 10px;
@@ -55,7 +55,8 @@
     
     <div class="kiosco-container">
         <iframe 
-            src="https://makecode.microbit.org/---run?id=S43115-03898-21520-38318" 
+            /* *** CANVI CLAU: Afegim &nohdr=1 a la URL per amagar la barra superior de MakeCode *** */
+            src="https://makecode.microbit.org/---run?id=S43115-03898-21520-38318&nohdr=1" 
             allowfullscreen="allowfullscreen" 
             sandbox="allow-popups allow-forms allow-scripts allow-same-origin allow-pointer-lock" 
             frameborder="0">
@@ -64,3 +65,4 @@
 
 </body>
 </html>
+
