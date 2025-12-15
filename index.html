@@ -3,37 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Micro:bit Kiosc Final</title>
+    <title>Micro:bit Kiosc Ultra-Centrat</title>
     
     <style>
-        /* CSS per centrar TOTS els elements a la finestra */
+        /* CSS per garantir que el body ocupi el 100% visible */
         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
             overflow: hidden;
-            background-color: #f0f0f0; /* Fons clar */
+            background-color: #f0f0f0;
+            /* Flexbox per centrar tot el contingut (títol + simulador) */
             display: flex;
-            justify-content: center;
-            align-items: center; 
-            flex-direction: column; /* Organitza els elements verticalment */
+            justify-content: center; /* Centrat horitzontal */
+            align-items: center; /* Centrat vertical */
+            flex-direction: column; 
             font-family: Arial, sans-serif;
             color: #333;
         }
 
-        /* 1. Ajust del Títol per al Centratge Visual */
+        /* 1. Títol */
         h2 {
-            margin-bottom: 10px; /* Menys espai sota el títol */
-            margin-top: -50px; /* PUJA EL TÍTOL PER EMPÈNYER EL CONTINGUT CAP AL CENTRE */
+            margin-bottom: 10px;
+            margin-top: 0; /* Eliminem l'ajust negatiu */
             font-size: 2.2em;
             color: #005A9C;
             text-align: center;
         }
 
-        /* 2. Contenidor principal per al simulador (Mida Fixa) */
+        /* 2. Contenidor principal (Usant alçada relativa per a compatibilitat) */
         .kiosco-container {
-            width: 750px; /* Reduïm lleugerament l'amplada */
-            height: 560px; /* Reduïm lleugerament l'alçada per al nou contingut */
+            /* Hem de trobar una mida que encaixi al 100% de les pantalles */
+            width: 780px; 
+            height: 580px; 
             
             border: 4px solid #00AAFF; 
             border-radius: 10px;
@@ -41,7 +43,7 @@
             position: relative;
         }
 
-        /* 3. L'iframe pren les dimensions fixes */
+        /* 3. Iframe */
         .kiosco-container iframe {
             width: 100%; 
             height: 100%; 
@@ -55,7 +57,6 @@
     
     <div class="kiosco-container">
         <iframe 
-            /* *** CANVI CLAU: Afegim &nohdr=1 a la URL per amagar la barra superior de MakeCode *** */
             src="https://makecode.microbit.org/---run?id=S43115-03898-21520-38318&nohdr=1" 
             allowfullscreen="allowfullscreen" 
             sandbox="allow-popups allow-forms allow-scripts allow-same-origin allow-pointer-lock" 
@@ -65,4 +66,3 @@
 
 </body>
 </html>
-
