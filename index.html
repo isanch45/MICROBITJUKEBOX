@@ -1,32 +1,34 @@
 <!doctype html>
 <html>
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>MakeCode</title>
-  <style>
-    html, body { margin:0 !important; padding:0 !important; height:100% !important; }
-    /* Mata qualsevol espai del tema / wrappers */
-    body { overflow:hidden !important; }
-
-    /* Fullscreen real */
-    iframe {
-      position: fixed !important;
-      inset: 0 !important;          /* top:0; right:0; bottom:0; left:0 */
-      width: 100vw !important;
-      height: 100vh !important;
-      border: 0 !important;
-      display: block !important;
-      background: white;
-      z-index: 999999 !important;
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Embed responsive</title>
+<style>
+  /* opció moderna: aspect-ratio */
+  .embed-wrap {
+    width: 100%;
+    max-width: 1200px; /* canvia segons necessitis */
+    margin: 0 auto;
+    aspect-ratio: 100 / 81.97; /* equival a padding-bottom:81.97% */
+    background: #eee;
+    overflow: hidden;
+  }
+  .embed-wrap iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+</style>
 </head>
 <body>
-  <iframe
-    src="https://makecode.microbit.org/---run?id=S43115-03898-21520-38318"
-    allowfullscreen
-    sandbox="allow-popups allow-forms allow-scripts allow-same-origin"
-  ></iframe>
+  <div class="embed-wrap">
+    <iframe
+      src="https://makecode.microbit.org/---run?id=_MWuAKFXo1bHT"
+      allowfullscreen
+      sandbox="allow-popups allow-forms allow-scripts allow-same-origin"
+    ></iframe>
+  </div>
 </body>
 </html>
