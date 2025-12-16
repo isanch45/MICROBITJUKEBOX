@@ -1,40 +1,32 @@
-<!DOCTYPE html>
-<html lang="ca">
+<!doctype html>
+<html>
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MakeCode Simulator</title>
-
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MakeCode</title>
   <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-     
-    }
+    html, body { margin:0 !important; padding:0 !important; height:100% !important; }
+    /* Mata qualsevol espai del tema / wrappers */
+    body { overflow:hidden !important; }
 
-    #wrap {
-      width: 100%;
-      height: 100vh;
-    }
-
+    /* Fullscreen real */
     iframe {
-      display: block;     /* elimina espai fantasma superior */
-      width: 100%;
-      height: 100%;
-      border: 0;
+      position: fixed !important;
+      inset: 0 !important;          /* top:0; right:0; bottom:0; left:0 */
+      width: 100vw !important;
+      height: 100vh !important;
+      border: 0 !important;
+      display: block !important;
+      background: white;
+      z-index: 999999 !important;
     }
   </style>
 </head>
 <body>
-  <div id="wrap">
-    <iframe
-      src="https://makecode.microbit.org/---run?id=S43115-03898-21520-38318"
-      allowfullscreen
-      sandbox="allow-popups allow-forms allow-scripts allow-same-origin"
-    ></iframe>
-  </div>
+  <iframe
+    src="https://makecode.microbit.org/---run?id=S43115-03898-21520-38318"
+    allowfullscreen
+    sandbox="allow-popups allow-forms allow-scripts allow-same-origin"
+  ></iframe>
 </body>
 </html>
-
