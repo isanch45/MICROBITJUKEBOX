@@ -5,37 +5,35 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Microbit Christmas Jukebox</title>
   <style>
-    html,body { margin:0; padding:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial; background:#f6f6f6; color:#111; }
-    .container { max-width: 980px; margin: 1.25rem auto; padding: 0 1rem; }
-    header { text-align: center; margin-bottom: 0.75rem; }
-    header h1 { margin: 0 0 .25rem 0; font-size: 1.4rem; }
-    header p { margin: 0; color:#666; font-size: .95rem; }
+    :root { --max-w: 360px; } /* canvia aquest valor per ajustar la mida per defecte */
+    html,body { height:100%; margin:0; padding:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial; background:#f6f6f6; color:#111; }
+    .container { max-width:980px; margin:18px auto; padding: 0 12px; }
+    header { text-align:center; margin-bottom:10px; }
+    header h1 { margin:0; font-size:1.4rem; }
+    header p { margin:6px 0 0; color:#555; font-size:0.95rem; }
 
-    /* Wrapper on posa la placa a dalt (just sota el títol).
-       Ajusta --sim-max-w per fer-ho més petit o més gran. */
+    /* Wrapper que limita l'amplada del simulator i el posa just sota el títol */
     .sim-wrap {
-      --sim-max-w: 360px; /* valor per defecte: petit. Canvia a 420px o 600px si vols més gran */
-      width: 100%;
-      max-width: var(--sim-max-w);
-      margin: 1rem auto 0;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-      background: #fff;
-      aspect-ratio: 100 / 81.97;
+      width:100%;
+      max-width:var(--max-w);
+      margin:12px auto 0;
+      border-radius:10px;
+      overflow:hidden;
+      background:#fff;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
     }
 
-    .sim-wrap.no-aspect { position: relative; height: 0; padding-bottom: 81.97%; }
+    /* El makecode embed ja aplica padding-bottom per aspect ratio; aquí només assegurem l'iframe */
+    .sim-wrap > div { width:100%; }
     .sim-wrap iframe { width:100%; height:100%; border:0; display:block; }
-    .sim-wrap.no-aspect iframe { position:absolute; top:0; left:0; }
 
-    .controls { text-align:center; margin-top: 0.75rem; }
-    .controls button { margin: 0 .25rem; padding: .35rem .6rem; border-radius:6px; border:1px solid #ddd; background:#fff; cursor:pointer; }
+    .controls { text-align:center; margin-top:12px; }
+    .controls button { margin:0 6px; padding:6px 10px; border-radius:6px; border:1px solid #ddd; background:#fff; cursor:pointer; }
     .controls button.active { background:#111; color:#fff; border-color:#111; }
 
     @media (max-width:640px) {
-      .sim-wrap { max-width: 100%; border-radius:8px; box-shadow:none; }
-      header h1 { font-size: 1.25rem; }
+      .container { padding:0 10px; }
+      .sim-wrap { max-width:100%; border-radius:8px; box-shadow:none; }
     }
   </style>
 </head>
@@ -43,24 +41,19 @@
   <div class="container">
     <header>
       <h1>Microbit Christmas Jukebox</h1>
-      <p>La placa (simulator) apareix aquí a dalt. Reemplaça el src de l'iframe per l'URL d'embed \"Simulator only\" que et dóna MakeCode.</p>
+      <p>La placa (simulator) apareix just aquí sota. Pots fer-la petita o gran.</p>
     </header>
 
-    <!--
-      IMPORTANT:
-      1) Obre el teu projecte a: https://makecode.microbit.org/_Mw80qdVMwbVo
-      2) Clicka Share → Embed → tria "Simulator only" → copia l'iframe o només el valor src.
-      3) Substitueix PASTE_SIMULATOR_SRC_HERE per la URL completa d'embed (p.ex. https://makecode.microbit.org/---run?id=XXXXX o la que et donin).
-      4) Desa i pugin l'arxiu.
-    -->
-    <div id="sim" class="sim-wrap">
-      <!-- Substitueix el valor de src amb l'URL d'embed Simulator-only que et dóna MakeCode -->
-      <iframe
-        title="Micro:bit simulator"
-        src="https://makecode.microbit.org/S92442-65062-21123-88412"
-        sandbox="allow-popups allow-forms allow-scripts allow-same-origin"
-        loading="lazy"
-      ></iframe>
+    <div id="sim" class="sim-wrap" aria-label="Simulator micro:bit">
+      <!-- Embed 'Simulator only' de MakeCode: -->
+      <div style="position:relative;height:0;padding-bottom:81.97%;overflow:hidden;">
+        <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;"
+          src="https://makecode.microbit.org/---run?id=_Mw80qdVMwbVo"
+          title="MakeCode micro:bit simulator"
+          allowfullscreen
+          sandbox="allow-popups allow-forms allow-scripts allow-same-origin"
+          ></iframe>
+      </div>
     </div>
 
     <div class="controls" aria-hidden="false">
@@ -72,20 +65,13 @@
   </div>
 
   <script>
-    // Fallback per aspect-ratio
-    try {
-      if (typeof CSS !== 'undefined' && !CSS.supports('aspect-ratio: 1 / 1')) {
-        document.getElementById('sim').classList.add('no-aspect');
-      }
-    } catch(e){}
-
-    // Controls per canviar mida
-    document.querySelectorAll('.controls button').forEach(btn=>{
+    // Controls per canviar la mida de l'embed (modifica la variable CSS --max-w)
+    document.querySelectorAll('.controls button').forEach(function(btn){
       btn.addEventListener('click', function(){
         document.querySelectorAll('.controls button').forEach(b=>b.classList.remove('active'));
         this.classList.add('active');
         var w = this.getAttribute('data-size');
-        document.getElementById('sim').style.setProperty('--sim-max-w', w + 'px');
+        document.documentElement.style.setProperty('--max-w', w + 'px');
       });
     });
   </script>
