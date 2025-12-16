@@ -43,7 +43,7 @@
   <div class="container">
     <header>
       <h1>Microbit Christmas Jukebox</h1>
-      <p>La placa (simulator) apareix aquí a dalt. Reemplaça el src de l'iframe per l'URL d'embed \"Simulator only\" que et dóna MakeCode.</p>
+      <p>Clica als botons i al logo per gaudir del Jukebox nadalenc.</p>
     </header>
 
     <!--
@@ -85,7 +85,7 @@
         document.querySelectorAll('.controls button').forEach(b=>b.classList.remove('active'));
         this.classList.add('active');
         var w = this.getAttribute('data-size');
-        document.getElementById('sim').style.setProperty('--sim-max-w', w + 'px');
+        document.getElementById('sim').style.setProperty('--sim-max-w', 600 + 'px');
       });
     });
   </script>
