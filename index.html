@@ -5,35 +5,40 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Microbit Christmas Jukebox</title>
   <style>
-    :root { --max-w: 360px; } /* canvia aquest valor per ajustar la mida per defecte */
-    html,body { height:100%; margin:0; padding:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial; background:#f6f6f6; color:#111; }
-    .container { max-width:980px; margin:18px auto; padding: 0 12px; }
-    header { text-align:center; margin-bottom:10px; }
+    :root { --bg: #f6f6f6; --card: #fff; --max-w: 360px; } /* canvia --max-w per fer-ho més gran */
+    html,body { height:100%; margin:0; padding:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial; background:var(--bg); color:#111; }
+    .container { max-width: 980px; margin: 1.25rem auto; padding: 0 1rem; }
+    header { text-align:center; margin-bottom: 0.5rem; }
     header h1 { margin:0; font-size:1.4rem; }
-    header p { margin:6px 0 0; color:#555; font-size:0.95rem; }
+    header p { margin:.35rem 0 0; color:#555; font-size:.95rem; }
 
-    /* Wrapper que limita l'amplada del simulator i el posa just sota el títol */
+    /* wrapper que limita l'amplada del simulator i el posa just sota el títol */
     .sim-wrap {
-      width:100%;
-      max-width:var(--max-w);
-      margin:12px auto 0;
-      border-radius:10px;
-      overflow:hidden;
-      background:#fff;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      width: 100%;
+      max-width: var(--max-w);
+      margin: 1rem auto 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--card);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+      /* l'element intern d'embed ja usa padding-bottom per aspect ratio,
+         així que no cal aspect-ratio aquí. */
     }
 
-    /* El makecode embed ja aplica padding-bottom per aspect ratio; aquí només assegurem l'iframe */
-    .sim-wrap > div { width:100%; }
+    /* el div d'embed inclòs (proveït pel MakeCode share) porta el seu propi style
+       (position:relative;height:0;padding-bottom:81.97%;overflow:hidden;) i
+       un iframe absolut dins, així que aquí només assegurem que l'iframe ocupi l'espai. */
     .sim-wrap iframe { width:100%; height:100%; border:0; display:block; }
 
-    .controls { text-align:center; margin-top:12px; }
-    .controls button { margin:0 6px; padding:6px 10px; border-radius:6px; border:1px solid #ddd; background:#fff; cursor:pointer; }
+    /* controls opcionals per ajustar la mida ràpidament */
+    .controls { text-align:center; margin-top:0.75rem; }
+    .controls button { margin:0 .25rem; padding:.35rem .6rem; border-radius:6px; border:1px solid #ddd; background:#fff; cursor:pointer; }
     .controls button.active { background:#111; color:#fff; border-color:#111; }
 
     @media (max-width:640px) {
-      .container { padding:0 10px; }
-      .sim-wrap { max-width:100%; border-radius:8px; box-shadow:none; }
+      .container { padding: 0 0.75rem; }
+      header h1 { font-size:1.25rem; }
+      .sim-wrap { max-width: 100%; border-radius:8px; box-shadow:none; }
     }
   </style>
 </head>
@@ -41,18 +46,18 @@
   <div class="container">
     <header>
       <h1>Microbit Christmas Jukebox</h1>
-      <p>La placa (simulator) apareix just aquí sota. Pots fer-la petita o gran.</p>
+      <p>La placa (simulator) apareix just aquí a sota — mida per defecte petita.</p>
     </header>
 
     <div id="sim" class="sim-wrap" aria-label="Simulator micro:bit">
-      <!-- Embed 'Simulator only' de MakeCode: -->
+      <!-- Embed 'Simulator only' proporcionat per MakeCode (ja amb aspect ratio) -->
       <div style="position:relative;height:0;padding-bottom:81.97%;overflow:hidden;">
         <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;"
           src="https://makecode.microbit.org/---run?id=_Mw80qdVMwbVo"
           title="MakeCode micro:bit simulator"
-          allowfullscreen
+          allowfullscreen="allowfullscreen"
           sandbox="allow-popups allow-forms allow-scripts allow-same-origin"
-          ></iframe>
+          frameborder="0"></iframe>
       </div>
     </div>
 
@@ -65,7 +70,7 @@
   </div>
 
   <script>
-    // Controls per canviar la mida de l'embed (modifica la variable CSS --max-w)
+    // Botons per canviar la mida del simulator canviant la variable CSS --max-w
     document.querySelectorAll('.controls button').forEach(function(btn){
       btn.addEventListener('click', function(){
         document.querySelectorAll('.controls button').forEach(b=>b.classList.remove('active'));
