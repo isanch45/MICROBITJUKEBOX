@@ -1,11 +1,11 @@
-<!doctype html> 
+<!doctype html>
 <html lang="ca">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Microbit Christmas Jukebox</title>
   <style>
-    :root { --max-w: 600px; } /* canvia aquest valor per ajustar la mida per defecte */
+    :root { --max-w: 360px; } /* canvia aquest valor per ajustar la mida per defecte */
     html,body { height:100%; margin:0; padding:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial; background:#f6f6f6; color:#111; }
     .container { max-width:980px; margin:18px auto; padding: 0 12px; }
     header { text-align:center; margin-bottom:10px; }
@@ -41,14 +41,14 @@
   <div class="container">
     <header>
       <h1>Microbit Christmas Jukebox</h1>
-      <p>Clica els botons i el logo per començar la festa nadalenca.</p>
+      <p>La placa (simulator) apareix just aquí sota. Pots fer-la petita o gran.</p>
     </header>
 
     <div id="sim" class="sim-wrap" aria-label="Simulator micro:bit">
       <!-- Embed 'Simulator only' de MakeCode: -->
-      <div style="position:relative;aspect-ratio:16/9;overflow:hidden;">
+      <div style="position:relative;height:0;padding-bottom:81.97%;overflow:hidden;">
         <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;"
-          src="https://makecode.microbit.org/---run?id=_etafuUDVT9x1" 
+          src="https://makecode.microbit.org/---run?id=_Xfb2RVHyfYsi"
           title="MakeCode micro:bit simulator"
           allowfullscreen
           sandbox="allow-popups allow-forms allow-scripts allow-same-origin"
@@ -56,7 +56,12 @@
       </div>
     </div>
 
-  
+    <div class="controls" aria-hidden="false">
+      <button data-size="300">Molt petit</button>
+      <button data-size="360" class="active">Petit</button>
+      <button data-size="420">Mitjà</button>
+      <button data-size="600">Gran</button>
+    </div>
   </div>
 
   <script>
