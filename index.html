@@ -1,82 +1,100 @@
 <!DOCTYPE html>
 <html lang="ca">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Micro:bit Sense Espais</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            background-color: #f0f0f0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulador Micro:bit Optimitzat</title>
+<style>
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f2f2f2;
+    margin: 0;
+    height: 100vh;
+    font-family: sans-serif;
+  }
 
-        /* Aquest és el contenidor mestre que controlarem amb els botons */
-        #marc-simulador {
-            background-color: transparent; 
-            margin-bottom: 20px;
-            /* Centrem el contingut per si de cas */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: all 0.3s ease; /* Suavitza el canvi de mida */
-        }
+  /* Container for the simulator */
+  #marc-exterior {
+    transition: width 0.3s ease, height 0.3s ease; /* Smooth animation */
+    background: white;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    overflow: hidden;
+    /* Visual improvements */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+  }
 
-        /* Estils per als botons */
-        .controls {
-            display: flex;
-            gap: 10px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border: 1px solid #ccc;
-            background: white;
-            border-radius: 5px;
-        }
-        button:hover {
-            background-color: #e0e0e0;
-        }
-    </style>
+  /* The wrapper for the iframe */
+  .sim-wrap {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+
+  /* Button styling */
+  .botons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap; /* Prevents breaking on small screens */
+    justify-content: center;
+  }
+
+  button {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    background-color: #0078d7;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    transition: background 0.2s;
+  }
+
+  button:hover {
+    background-color: #005a9e;
+  }
+</style>
 </head>
 <body>
 
-    <div id="marc-simulador" style="width: 380px; height: 320px;">
-        
-        <div id="sim" class="sim-wrap" aria-label="Simulator micro:bit" style="width:100%; height:100%;">
-            <div style="width:100%; height:100%; overflow:hidden; position:relative;">
-                <iframe 
-                    style="width:100%; height:100%; border:0; display:block;"
-                    src="https://makecode.microbit.org/---run?id=_Xfb2RVHyfYsi"
-                    title="MakeCode micro:bit simulator"
-                    allowfullscreen
-                    sandbox="allow-popups allow-forms allow-scripts allow-same-origin">
-                </iframe>
-            </div>
-        </div>
-        </div>
-
-    <div class="controls">
-        <button onclick="canviarMida(200, 170)">Molt petit</button>
-        <button onclick="canviarMida(380, 320)">Petit</button>
-        <button onclick="canviarMida(550, 460)">Mitjà</button>
-        <button onclick="canviarMida(750, 630)">Gran</button>
+<div id="marc-exterior" style="width: 370px; height: 320px;">
+    <div class="sim-wrap">
+        <iframe 
+            src="https://makecode.microbit.org/---run?id=_Xfb2RVHyfYsi"
+            title="MakeCode micro:bit simulator"
+            allowfullscreen="allowfullscreen"
+            sandbox="allow-popups allow-forms allow-scripts allow-same-origin">
+        </iframe>
     </div>
+</div>
 
-    <script>
-        function canviarMida(amplada, alçada) {
-            var marc = document.getElementById('marc-simulador');
-            // Apliquem la nova amplada i alçada al contenidor pare
-            marc.style.width = amplada + 'px';
-            marc.style.height = alçada + 'px';
-        }
-    </script>
+<div class="botons">
+  <button onclick="canviar(250, 215)">Molt petit</button>
+  <button onclick="canviar(370, 320)">Petit (Defecte)</button>
+  <button onclick="canviar(500, 430)">Mitjà</button>
+  <button onclick="canviar(700, 600)">Gran</button>
+</div>
+
+<script>
+  function canviar(amplada, alçada) {
+    var marc = document.getElementById('marc-exterior');
+    
+    // Simply change the CSS. The iframe will adapt automatically.
+    marc.style.width = amplada + 'px';
+    marc.style.height = alçada + 'px';
+  }
+</script>
 
 </body>
 </html>
