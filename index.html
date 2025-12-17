@@ -72,7 +72,7 @@
 </head>
 <body>
 
-<div id="marc-exterior" style="width: 370px; height: 320px;">
+<div id="marc-exterior" style="width: 500px; height: 450px;">
     <iframe 
         src="https://makecode.microbit.org/---run?id=_Xfb2RVHyfYsi"
         title="MakeCode micro:bit simulator"
@@ -81,20 +81,7 @@
     </iframe>
 </div>
 
-<div class="botons">
-  <button onclick="canviar(250, 230)">Molt petit</button>
-  <button onclick="canviar(370, 320)">Petit (Defecte)</button>
-  <button onclick="canviar(500, 450)">Mitjà</button>
-  <button onclick="canviar(700, 620)">Gran</button>
-</div>
 
-<script>
-  function canviar(amplada, alçada) {
-    var marc = document.getElementById('marc-exterior');
-    marc.style.width = amplada + 'px';
-    marc.style.height = alçada + 'px';
-  }
-</script>
 
 </body>
 </html>
