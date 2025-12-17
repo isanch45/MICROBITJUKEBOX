@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Simulador Micro:bit Centrat</title>
+<title>Christmas Micro:bit Jukebox</title>
 <style>
   body {
     display: flex;
@@ -16,72 +16,73 @@
     font-family: sans-serif;
   }
 
-  /* MARC EXTERIOR */
+  /* --- ESTIL DEL TÍTOL --- */
+  h1 {
+    font-size: 36px;
+    color: #d42426;        /* Vermell Nadalenc */
+    margin: 0;
+    margin-bottom: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+  }
+
+  /* --- ESTIL DEL SUBTÍTOL --- */
+  h2 {
+    font-size: 16px;
+    color: #555;           /* Gris fosc */
+    margin: 0;
+    margin-bottom: 25px;   /* Espai abans de la placa */
+    font-weight: normal;
+    text-align: center;
+  }
+
+  /* --- MARC DEL SIMULADOR (Mida Mitjana Fixa) --- */
   #marc-exterior {
-    transition: width 0.3s ease, height 0.3s ease;
-    background: #000; /* Fons negre perquè es fongui amb el simulador */
-    border: 1px solid #ccc;
-    margin-bottom: 20px;
+    width: 500px;
+    height: 450px;
     
-    /* Això retalla el que surt fora */
+    background: #000;      /* Fons negre */
+    border: 1px solid #ccc;
+    
+    /* La "tisora" que retalla */
     overflow: hidden; 
     position: relative; 
     
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2); /* Una mica més d'ombra per fer-ho bonic */
+    border-radius: 15px;   /* Cantonades més arrodonides */
   }
 
-  /* IFRAME */
+  /* --- IFRAME (Ajustat al mil·límetre) --- */
   iframe {
     border: 0;
     display: block;
     position: absolute;
     width: 100%;
     
-    /* --- AJUST VERTICAL --- */
-    /* Hem canviat de -55px a -75px per pujar-ho més */
+    /* Els valors que funcionaven bé: */
     top: -140px; 
-    
-    /* Compensem l'alçada perquè no es talli per baix */
     height: calc(100% + 155px); 
-  }
-
-  /* BOTONS */
-  .botons {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  button {
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 14px;
-    background-color: #333;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    transition: background 0.2s;
-  }
-
-  button:hover {
-    background-color: #555;
+    
+    pointer-events: auto; 
   }
 </style>
 </head>
 <body>
 
-<div id="marc-exterior" style="width: 500px; height: 450px;">
-    <iframe 
-        src="https://makecode.microbit.org/---run?id=_Xfb2RVHyfYsi"
-        title="MakeCode micro:bit simulator"
-        allowfullscreen="allowfullscreen"
-        sandbox="allow-popups allow-forms allow-scripts allow-same-origin">
-    </iframe>
-</div>
+  <h1>CHRISTMAS MICROBIT JUKEBOX</h1>
+  <h2>Clica els botons i el logo per començar la festa</h2>
 
-
+  <div id="marc-exterior">
+      <iframe 
+          src="https://makecode.microbit.org/---run?id=_Xfb2RVHyfYsi"
+          title="MakeCode micro:bit simulator"
+          allowfullscreen="allowfullscreen"
+          sandbox="allow-popups allow-forms allow-scripts allow-same-origin">
+      </iframe>
+  </div>
 
 </body>
 </html>
