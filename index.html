@@ -1,111 +1,120 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ca">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Microbit Christmas Jukebox</title>
-  <style>
-    /* Definim la variable de l'amplada inicial */
-    :root { --max-w: 360px; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microbit Christmas Jukebox</title>
+    <style>
+        /* --- ESTILS CSS --- */
 
-    html, body { height: 100%; margin: 0; padding: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial; background: #f6f6f6; color: #111; }
-    .container { max-width: 980px; margin: 18px auto; padding: 0 12px; }
-    
-    header { text-align: center; margin-bottom: 10px; }
-    header h1 { margin: 0; font-size: 1.4rem; }
-    header p { margin: 6px 0 0; color: #555; font-size: 0.95rem; }
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
 
-    /* --- EL SECRET ESTÀ AQUÍ --- */
-    .sim-wrap {
-      width: 100%;
-      max-width: var(--max-w); /* L'amplada la controla el botó */
-      margin: 12px auto 0;
-      
-      /* Aquesta línia manté la forma rectangular (4:3) automàticament */
-      aspect-ratio: 4 / 3; 
-      
-      border-radius: 10px;
-      overflow: hidden;
-      background: #fff;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-      
-      /* Centrem l'iframe per si de cas */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+        /* Contenidor principal del simulador */
+        .sim-wrap {
+            margin: 20px auto; /* Centra el requadre */
+            background: white;
+            border-radius: 20px; /* Cantonades arrodonides */
+            overflow: hidden; /* Assegura que res surti fora */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Ombra suau */
+            transition: all 0.3s ease; /* Fa l'animació de canvi de mida suau */
+        }
 
-    /* Fallback per a navegadors molt antics que no entenen aspect-ratio */
-    @supports not (aspect-ratio: 4 / 3) {
-      .sim-wrap {
-        height: 0;
-        padding-bottom: 75%; /* Equivalent a 4/3 */
-        position: relative;
-        display: block;
-      }
-      .sim-wrap iframe {
-        position: absolute;
-        top: 0; left: 0;
-      }
-    }
+        /* Estil per al div intern que conté l'iframe */
+        .iframe-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
 
-    .sim-wrap iframe {
-      width: 100%;
-      height: 100%;
-      border: 0;
-      display: block;
-    }
+        /* L'iframe ocupa sempre el 100% del contenidor pare */
+        .iframe-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
 
-    .controls { text-align: center; margin-top: 12px; }
-    .controls button { margin: 0 6px; padding: 6px 10px; border-radius: 6px; border: 1px solid #ddd; background: #fff; cursor: pointer; }
-    .controls button.active { background: #111; color: #fff; border-color: #111; }
+        /* --- MIDES DEFINIDES --- */
+        /* Aquí controlem l'amplada i l'alçada per cada botó */
 
-    @media (max-width: 640px) {
-      .container { padding: 0 10px; }
-      .sim-wrap { max-width: 100%; border-radius: 8px; box-shadow: none; }
-    }
-  </style>
+        .sim-wrap.molt-petit {
+            width: 150px;
+            height: 125px;
+        }
+
+        .sim-wrap.petit {
+            width: 300px;
+            height: 250px; /* Alçada suficient perquè es vegi tot */
+        }
+
+        .sim-wrap.mitja {
+            width: 500px;
+            height: 410px; /* Proporcional */
+        }
+
+        .sim-wrap.gran {
+            width: 800px;
+            height: 660px; /* Molt d'espai vertical pel simulador gran */
+            max-width: 95%; /* Perquè no se surti en mòbils */
+        }
+
+        /* Estil dels botons */
+        .controls button {
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            background: white;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .controls button:hover {
+            background-color: #eee;
+        }
+
+    </style>
 </head>
 <body>
 
-  <div class="container">
-    <header>
-      <h1>Microbit Christmas Jukebox</h1>
-      <p>La placa (simulator) apareix just aquí sota. Pots fer-la petita o gran.</p>
-    </header>
+    <h1>Microbit Christmas Jukebox</h1>
+    <p>La placa (simulador) apareix just aquí sota. Pots fer-la petita o gran.</p>
 
-    <div class="sim-wrap" aria-label="Simulator micro:bit">
-      <iframe 
-        src="https://makecode.microbit.org/---run?id=_Xfb2RVHyfYsi"
-        title="MakeCode micro:bit simulator"
-        allowfullscreen
-        sandbox="allow-popups allow-forms allow-scripts allow-same-origin">
-      </iframe>
+    <div id="sim" class="sim-wrap petit" aria-label="Simulator micro:bit">
+        <div class="iframe-container">
+            <iframe 
+                src="https://makecode.microbit.org/---run?id=_Xfb2RVHyfYsi"
+                title="MakeCode micro:bit simulator"
+                allowfullscreen
+                sandbox="allow-popups allow-forms allow-scripts allow-same-origin">
+            </iframe>
+        </div>
     </div>
 
     <div class="controls">
-      <button data-size="300">Molt petit</button>
-      <button data-size="360" class="active">Petit</button>
-      <button data-size="420">Mitjà</button>
-      <button data-size="600">Gran</button>
+        <button onclick="canviaMida('molt-petit')">Molt petit</button>
+        <button onclick="canviaMida('petit')">Petit</button>
+        <button onclick="canviaMida('mitja')">Mitjà</button>
+        <button onclick="canviaMida('gran')">Gran</button>
     </div>
-  </div>
 
-  <script>
-    // Ara el script és molt més senzill i robust: només canvia l'amplada.
-    // L'alçada s'ajusta sola gràcies al CSS "aspect-ratio".
-    document.querySelectorAll('.controls button').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        // 1. Canvi visual de botons
-        document.querySelectorAll('.controls button').forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-
-        // 2. Canvi de l'amplada de la caixa
-        var ample = this.getAttribute('data-size');
-        document.documentElement.style.setProperty('--max-w', ample + 'px');
-      });
-    });
-  </script>
+    <script>
+        /* --- JAVASCRIPT --- */
+        function canviaMida(mida) {
+            var contenidor = document.getElementById('sim');
+            
+            // 1. Treiem totes les classes de mida possibles
+            contenidor.classList.remove('molt-petit', 'petit', 'mitja', 'gran');
+            
+            // 2. Afegim la nova classe seleccionada
+            contenidor.classList.add(mida);
+        }
+    </script>
 
 </body>
 </html>
