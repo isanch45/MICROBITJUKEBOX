@@ -5,49 +5,69 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Microbit Christmas Jukebox</title>
   <style>
+    /* Definim la variable de l'amplada inicial */
     :root { --max-w: 360px; }
-    html,body { height:100%; margin:0; padding:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial; background:#f6f6f6; color:#111; }
-    .container { max-width:980px; margin:18px auto; padding: 0 12px; }
-    header { text-align:center; margin-bottom:10px; }
-    header h1 { margin:0; font-size:1.4rem; }
-    header p { margin:6px 0 0; color:#555; font-size:0.95rem; }
 
+    html, body { height: 100%; margin: 0; padding: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial; background: #f6f6f6; color: #111; }
+    .container { max-width: 980px; margin: 18px auto; padding: 0 12px; }
+    
+    header { text-align: center; margin-bottom: 10px; }
+    header h1 { margin: 0; font-size: 1.4rem; }
+    header p { margin: 6px 0 0; color: #555; font-size: 0.95rem; }
+
+    /* --- EL SECRET ESTÀ AQUÍ --- */
     .sim-wrap {
-      width:100%;
-      max-width:var(--max-w);
-      margin:12px auto 0;
-      border-radius:10px;
-      overflow:hidden; /* Això evita que surti res per fora */
-      background:#fff;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-      line-height: 0; /* Correcció vital per eliminar espais extra sota l'iframe */
-    }
-
-    /* Contenidor amb alçada dinàmica */
-    #sim-container {
       width: 100%;
-      height: 295px; /* Alçada inicial per defecte (360 * 0.82) */
-      position: relative;
+      max-width: var(--max-w); /* L'amplada la controla el botó */
+      margin: 12px auto 0;
+      
+      /* Aquesta línia manté la forma rectangular (4:3) automàticament */
+      aspect-ratio: 4 / 3; 
+      
+      border-radius: 10px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      
+      /* Centrem l'iframe per si de cas */
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    #sim-container iframe {
+    /* Fallback per a navegadors molt antics que no entenen aspect-ratio */
+    @supports not (aspect-ratio: 4 / 3) {
+      .sim-wrap {
+        height: 0;
+        padding-bottom: 75%; /* Equivalent a 4/3 */
+        position: relative;
+        display: block;
+      }
+      .sim-wrap iframe {
+        position: absolute;
+        top: 0; left: 0;
+      }
+    }
+
+    .sim-wrap iframe {
       width: 100%;
       height: 100%;
       border: 0;
       display: block;
     }
 
-    .controls { text-align:center; margin-top:12px; }
-    .controls button { margin:0 6px; padding:6px 10px; border-radius:6px; border:1px solid #ddd; background:#fff; cursor:pointer; }
-    .controls button.active { background:#111; color:#fff; border-color:#111; }
+    .controls { text-align: center; margin-top: 12px; }
+    .controls button { margin: 0 6px; padding: 6px 10px; border-radius: 6px; border: 1px solid #ddd; background: #fff; cursor: pointer; }
+    .controls button.active { background: #111; color: #fff; border-color: #111; }
 
-    @media (max-width:640px) {
-      .container { padding:0 10px; }
-      .sim-wrap { max-width:100%; border-radius:8px; box-shadow:none; }
+    @media (max-width: 640px) {
+      .container { padding: 0 10px; }
+      .sim-wrap { max-width: 100%; border-radius: 8px; box-shadow: none; }
     }
   </style>
 </head>
 <body>
+
   <div class="container">
     <header>
       <h1>Microbit Christmas Jukebox</h1>
@@ -55,14 +75,12 @@
     </header>
 
     <div class="sim-wrap" aria-label="Simulator micro:bit">
-      <div id="sim-container">
-        <iframe 
-          src="https://makecode.microbit.org/---run?id=_Xfb2RVHyfYsi"
-          title="MakeCode micro:bit simulator"
-          allowfullscreen
-          sandbox="allow-popups allow-forms allow-scripts allow-same-origin">
-        </iframe>
-      </div>
+      <iframe 
+        src="https://makecode.microbit.org/---run?id=_Xfb2RVHyfYsi"
+        title="MakeCode micro:bit simulator"
+        allowfullscreen
+        sandbox="allow-popups allow-forms allow-scripts allow-same-origin">
+      </iframe>
     </div>
 
     <div class="controls">
@@ -74,31 +92,20 @@
   </div>
 
   <script>
-    // Aquesta funció s'encarrega d'ajustar l'alçada cada cop que es canvia l'amplada
-    function ajustarSimulador(ample) {
-      const container = document.getElementById('sim-container');
-      // Calculem l'alçada ideal (factor 0.82 de Microbit)
-      const novaAlçada = Math.round(ample * 0.82);
-      container.style.height = novaAlçada + 'px';
-      document.documentElement.style.setProperty('--max-w', ample + 'px');
-    }
-
+    // Ara el script és molt més senzill i robust: només canvia l'amplada.
+    // L'alçada s'ajusta sola gràcies al CSS "aspect-ratio".
     document.querySelectorAll('.controls button').forEach(function(btn) {
       btn.addEventListener('click', function() {
-        // Gestió de botons actius
+        // 1. Canvi visual de botons
         document.querySelectorAll('.controls button').forEach(b => b.classList.remove('active'));
         this.classList.add('active');
 
-        // Aplicar la mida
-        const mida = this.getAttribute('data-size');
-        ajustarSimulador(mida);
+        // 2. Canvi de l'amplada de la caixa
+        var ample = this.getAttribute('data-size');
+        document.documentElement.style.setProperty('--max-w', ample + 'px');
       });
     });
-
-    // Executar un cop al principi per assegurar que la mida inicial és correcta
-    window.onload = function() {
-      ajustarSimulador(360);
-    };
   </script>
+
 </body>
 </html>
