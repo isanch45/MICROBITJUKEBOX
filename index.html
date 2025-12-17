@@ -3,116 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Microbit Christmas Jukebox</title>
+    <title>Micro:bit Simulador</title>
     <style>
-        /* --- ESTILS CSS --- */
-
-        body {
-            font-family: sans-serif;
-            text-align: center;
-            background-color: #f4f4f4;
-            padding: 20px;
-        }
-
-        /* Contenidor principal del simulador */
-        .sim-wrap {
-            margin: 20px auto; /* Centra el requadre */
-            background: white;
-            border-radius: 20px; /* Cantonades arrodonides */
-            overflow: hidden; /* Assegura que res surti fora */
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Ombra suau */
-            transition: all 0.3s ease; /* Fa l'animació de canvi de mida suau */
-        }
-
-        /* Estil per al div intern que conté l'iframe */
-        .iframe-container {
+        /* Quitamos márgenes por defecto del navegador */
+        html, body {
+            margin: 0;
+            padding: 0;
             width: 100%;
-            height: 100%;
+            height: 100vh; /* Ocupa el 100% de la altura de la ventana */
+            overflow: hidden; /* Evita barras de desplazamiento dobles */
+            background-color: #f2f2f2; /* Color de fondo gris suave para distinguir */
+            display: flex;
+            flex-direction: column; /* Organiza todo en columna vertical */
+        }
+
+        /* El contenedor del simulador ocupará TODO el espacio que sobre */
+        #contenedor-simulador {
+            flex-grow: 1; /* Esto es la clave: crece para llenar el hueco */
+            display: flex;
+            justify-content: center; /* Centrado horizontal */
+            align-items: center; /* Centrado vertical */
+            width: 100%;
+            background-color: white; /* O negro, si prefieres que se funda */
             position: relative;
         }
 
-        /* L'iframe ocupa sempre el 100% del contenidor pare */
-        .iframe-container iframe {
+        /* Ajustamos el iframe para que no se recorte */
+        iframe {
             width: 100%;
             height: 100%;
-            border: 0;
+            border: none;
             display: block;
         }
 
-        /* --- MIDES DEFINIDES --- */
-        /* Aquí controlem l'amplada i l'alçada per cada botó */
-
-        .sim-wrap.molt-petit {
-            width: 150px;
-            height: 125px;
+        /* La barra de botones se queda fija abajo */
+        .controles {
+            flex-shrink: 0; /* No se encoge */
+            padding: 10px;
+            background: #ffffff;
+            text-align: center;
+            border-top: 1px solid #ccc;
         }
 
-        .sim-wrap.petit {
-            width: 300px;
-            height: 250px; /* Alçada suficient perquè es vegi tot */
-        }
-
-        .sim-wrap.mitja {
-            width: 500px;
-            height: 410px; /* Proporcional */
-        }
-
-        .sim-wrap.gran {
-            width: 800px;
-            height: 660px; /* Molt d'espai vertical pel simulador gran */
-            max-width: 95%; /* Perquè no se surti en mòbils */
-        }
-
-        /* Estil dels botons */
-        .controls button {
-            padding: 10px 15px;
-            margin: 5px;
+        button {
+            padding: 8px 16px;
+            margin: 0 5px;
             cursor: pointer;
-            border: 1px solid #ccc;
-            background: white;
-            border-radius: 5px;
-            font-size: 16px;
+            font-size: 14px;
         }
-
-        .controls button:hover {
-            background-color: #eee;
-        }
-
     </style>
 </head>
 <body>
 
-    <h1>Microbit Christmas Jukebox</h1>
-    <p>La placa (simulador) apareix just aquí sota. Pots fer-la petita o gran.</p>
-
-    <div id="sim" class="sim-wrap petit" aria-label="Simulator micro:bit">
-        <div class="iframe-container">
-            <iframe 
-                src="https://makecode.microbit.org/---run?id=_Xfb2RVHyfYsi"
-                title="MakeCode micro:bit simulator"
-                allowfullscreen
-                sandbox="allow-popups allow-forms allow-scripts allow-same-origin">
-            </iframe>
-        </div>
+    <div id="contenedor-simulador">
+        <iframe src="https://makecode.microbit.org/---run?id=AQUI_TU_ID_DE_PROYECTO" title="Simulator"></iframe>
     </div>
 
-    <div class="controls">
-        <button onclick="canviaMida('molt-petit')">Molt petit</button>
-        <button onclick="canviaMida('petit')">Petit</button>
-        <button onclick="canviaMida('mitja')">Mitjà</button>
-        <button onclick="canviaMida('gran')">Gran</button>
+    <div class="controles">
+        <button onclick="cambiarTamano('molt-petit')">Molt petit</button>
+        <button onclick="cambiarTamano('petit')">Petit</button>
+        <button onclick="cambiarTamano('mitja')">Mitjà</button>
+        <button onclick="cambiarTamano('gran')">Gran</button>
     </div>
 
     <script>
-        /* --- JAVASCRIPT --- */
-        function canviaMida(mida) {
-            var contenidor = document.getElementById('sim');
-            
-            // 1. Treiem totes les classes de mida possibles
-            contenidor.classList.remove('molt-petit', 'petit', 'mitja', 'gran');
-            
-            // 2. Afegim la nova classe seleccionada
-            contenidor.classList.add(mida);
+        // Si necesitas que los botones cambien el zoom del iframe, dímelo
+        // y ajustamos esta parte del script.
+        function cambiarTamano(tamano) {
+            console.log("Canviant a: " + tamano);
+            // Aquí iría la lógica si necesitas redimensionar algo interno
         }
     </script>
 
