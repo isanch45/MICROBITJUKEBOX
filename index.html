@@ -3,75 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Micro:bit Simulador</title>
+    <title>Micro:bit Sense Espais</title>
     <style>
-        /* Quitamos márgenes por defecto del navegador */
-        html, body {
+        body {
+            font-family: sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
             margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100vh; /* Ocupa el 100% de la altura de la ventana */
-            overflow: hidden; /* Evita barras de desplazamiento dobles */
-            background-color: #f2f2f2; /* Color de fondo gris suave para distinguir */
+        }
+
+        /* Aquest és el contenidor mestre que controlarem amb els botons */
+        #marc-simulador {
+            background-color: transparent; 
+            margin-bottom: 20px;
+            /* Centrem el contingut per si de cas */
             display: flex;
-            flex-direction: column; /* Organiza todo en columna vertical */
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease; /* Suavitza el canvi de mida */
         }
 
-        /* El contenedor del simulador ocupará TODO el espacio que sobre */
-        #contenedor-simulador {
-            flex-grow: 1; /* Esto es la clave: crece para llenar el hueco */
+        /* Estils per als botons */
+        .controls {
             display: flex;
-            justify-content: center; /* Centrado horizontal */
-            align-items: center; /* Centrado vertical */
-            width: 100%;
-            background-color: white; /* O negro, si prefieres que se funda */
-            position: relative;
+            gap: 10px;
         }
-
-        /* Ajustamos el iframe para que no se recorte */
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            display: block;
-        }
-
-        /* La barra de botones se queda fija abajo */
-        .controles {
-            flex-shrink: 0; /* No se encoge */
-            padding: 10px;
-            background: #ffffff;
-            text-align: center;
-            border-top: 1px solid #ccc;
-        }
-
         button {
-            padding: 8px 16px;
-            margin: 0 5px;
+            padding: 10px 20px;
+            font-size: 16px;
             cursor: pointer;
-            font-size: 14px;
+            border: 1px solid #ccc;
+            background: white;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #e0e0e0;
         }
     </style>
 </head>
 <body>
 
-    <div id="contenedor-simulador">
-        <iframe src=""https://makecode.microbit.org/---run?id=_KasitVUzb1ht" title="Simulator"></iframe>
-    </div>
+    <div id="marc-simulador" style="width: 380px; height: 320px;">
+        
+        <div id="sim" class="sim-wrap" aria-label="Simulator micro:bit" style="width:100%; height:100%;">
+            <div style="width:100%; height:100%; overflow:hidden; position:relative;">
+                <iframe 
+                    style="width:100%; height:100%; border:0; display:block;"
+                    src="https://makecode.microbit.org/---run?id=_Xfb2RVHyfYsi"
+                    title="MakeCode micro:bit simulator"
+                    allowfullscreen
+                    sandbox="allow-popups allow-forms allow-scripts allow-same-origin">
+                </iframe>
+            </div>
+        </div>
+        </div>
 
-    <div class="controles">
-        <button onclick="cambiarTamano('molt-petit')">Molt petit</button>
-        <button onclick="cambiarTamano('petit')">Petit</button>
-        <button onclick="cambiarTamano('mitja')">Mitjà</button>
-        <button onclick="cambiarTamano('gran')">Gran</button>
+    <div class="controls">
+        <button onclick="canviarMida(200, 170)">Molt petit</button>
+        <button onclick="canviarMida(380, 320)">Petit</button>
+        <button onclick="canviarMida(550, 460)">Mitjà</button>
+        <button onclick="canviarMida(750, 630)">Gran</button>
     </div>
 
     <script>
-        // Si necesitas que los botones cambien el zoom del iframe, dímelo
-        // y ajustamos esta parte del script.
-        function cambiarTamano(tamano) {
-            console.log("Canviant a: " + tamano);
-            // Aquí iría la lógica si necesitas redimensionar algo interno
+        function canviarMida(amplada, alçada) {
+            var marc = document.getElementById('marc-simulador');
+            // Apliquem la nova amplada i alçada al contenidor pare
+            marc.style.width = amplada + 'px';
+            marc.style.height = alçada + 'px';
         }
     </script>
 
