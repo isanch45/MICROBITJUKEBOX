@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Simulador Micro:bit Optimitzat</title>
+<title>Simulador Micro:bit</title>
 <style>
   body {
     display: flex;
@@ -13,75 +13,49 @@
     background-color: #f2f2f2;
     margin: 0;
     height: 100vh;
-    font-family: sans-serif;
   }
 
-  /* Container for the simulator */
+  /* Aquest és el marc que canviarem de mida */
   #marc-exterior {
-    transition: width 0.3s ease, height 0.3s ease; /* Smooth animation */
-    background: white;
-    border: 1px solid #ccc;
+    transition: all 0.3s ease;
+    background: white; /* Per veure si el marc existeix */
+    border: 1px solid #ddd; /* Vora fina per veure els límits */
     margin-bottom: 20px;
-    overflow: hidden;
-    /* Visual improvements */
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    border-radius: 8px;
+    overflow: hidden; /* Important perquè no surti res de mare */
   }
 
-  /* The wrapper for the iframe */
-  .sim-wrap {
-    width: 100%;
-    height: 100%;
-    position: relative;
-  }
-
-  iframe {
-    width: 100%;
-    height: 100%;
-    border: 0;
-    display: block;
-  }
-
-  /* Button styling */
   .botons {
     display: flex;
     gap: 10px;
-    flex-wrap: wrap; /* Prevents breaking on small screens */
-    justify-content: center;
   }
 
   button {
-    padding: 10px 20px;
+    padding: 10px 15px;
     cursor: pointer;
     font-size: 14px;
-    background-color: #0078d7;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    transition: background 0.2s;
-  }
-
-  button:hover {
-    background-color: #005a9e;
   }
 </style>
 </head>
 <body>
 
 <div id="marc-exterior" style="width: 370px; height: 320px;">
-    <div class="sim-wrap">
-        <iframe 
-            src="https://makecode.microbit.org/---run?id=_Xfb2RVHyfYsi"
-            title="MakeCode micro:bit simulator"
-            allowfullscreen="allowfullscreen"
-            sandbox="allow-popups allow-forms allow-scripts allow-same-origin">
-        </iframe>
+    
+    <div id="sim" class="sim-wrap" style="width:100%; height:100%;">
+        <div style="width:100%; height:100%; overflow:hidden; position:relative;">
+            <iframe 
+                style="width:100%; height:100%; border:0; display:block;"
+                src="https://makecode.microbit.org/---run?id=_Xfb2RVHyfYsi"
+                title="MakeCode micro:bit simulator"
+                allowfullscreen
+                sandbox="allow-popups allow-forms allow-scripts allow-same-origin">
+            </iframe>
+        </div>
     </div>
-</div>
 
+</div>
 <div class="botons">
   <button onclick="canviar(250, 215)">Molt petit</button>
-  <button onclick="canviar(370, 320)">Petit (Defecte)</button>
+  <button onclick="canviar(370, 320)">Petit</button>
   <button onclick="canviar(500, 430)">Mitjà</button>
   <button onclick="canviar(700, 600)">Gran</button>
 </div>
@@ -89,10 +63,15 @@
 <script>
   function canviar(amplada, alçada) {
     var marc = document.getElementById('marc-exterior');
-    
-    // Simply change the CSS. The iframe will adapt automatically.
     marc.style.width = amplada + 'px';
     marc.style.height = alçada + 'px';
+    
+    // Forcem a l'iframe a redibuixar-se per si de cas
+    var iframe = marc.querySelector('iframe');
+    iframe.style.display = 'none';
+    setTimeout(function() {
+        iframe.style.display = 'block';
+    }, 10);
   }
 </script>
 
