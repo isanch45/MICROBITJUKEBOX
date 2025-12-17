@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Simulador Micro:bit Sense Marge</title>
+<title>Simulador Micro:bit Centrat</title>
 <style>
   body {
     display: flex;
@@ -16,38 +16,37 @@
     font-family: sans-serif;
   }
 
-  /* EL MARC EXTERIOR (La finestra visible) */
+  /* MARC EXTERIOR */
   #marc-exterior {
     transition: width 0.3s ease, height 0.3s ease;
-    background: #000; /* Fons negre per si es veu alguna vora */
+    background: #000; /* Fons negre perquè es fongui amb el simulador */
     border: 1px solid #ccc;
     margin-bottom: 20px;
     
-    /* AQUESTES DUES PROPIETATS SON CLAU PER AL RETALL: */
-    overflow: hidden; /* Tot el que surti d'aquí no es veurà */
+    /* Això retalla el que surt fora */
+    overflow: hidden; 
     position: relative; 
     
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     border-radius: 8px;
   }
 
-  /* L'IFRAME (El contingut web) */
+  /* IFRAME */
   iframe {
     border: 0;
     display: block;
-    
-    /* TRUC PER ELIMINAR LA FRANJA BLANCA SUPERIOR */
     position: absolute;
     width: 100%;
     
-    /* Pugem l'iframe 55px cap amunt per amagar la franja blanca */
-    top: -55px; 
+    /* --- AJUST VERTICAL --- */
+    /* Hem canviat de -55px a -75px per pujar-ho més */
+    top: -75px; 
     
-    /* Fem l'iframe més alt per compensar el que hem pujat */
-    height: calc(100% + 55px); 
+    /* Compensem l'alçada perquè no es talli per baix */
+    height: calc(100% + 75px); 
   }
 
-  /* Estils dels botons */
+  /* BOTONS */
   .botons {
     display: flex;
     gap: 10px;
