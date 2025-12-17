@@ -47,15 +47,15 @@
     <div id="sim" class="sim-wrap" aria-label="Simulator micro:bit">
       <!-- Embed 'Simulator only' de MakeCode: -->
      <div id="sim" class="sim-wrap" aria-label="Simulator micro:bit">
-      <div style="width:100%; height:320px; overflow:hidden; position:relative;">
-        <iframe 
-          style="width:100%; height:100%; border:0; display:block;"
-          src="https://makecode.microbit.org/---run?id=_Xfb2RVHyfYsi"
-          title="MakeCode micro:bit simulator"
-          allowfullscreen
-          sandbox="allow-popups allow-forms allow-scripts allow-same-origin">
-        </iframe>
-      </div>
+   <div id="sim-container" style="width:100%; height:300px; overflow:hidden;">
+  <iframe 
+    style="width:100%; height:100%; border:0; display:block;"
+    src="https://makecode.microbit.org/---run?id=_Xfb2RVHyfYsi"
+    title="MakeCode micro:bit simulator"
+    allowfullscreen
+    sandbox="allow-popups allow-forms allow-scripts allow-same-origin">
+  </iframe>
+</div>
     </div>
     </div>
 
@@ -67,16 +67,22 @@
     </div>
   </div>
 
-  <script>
-    // Controls per canviar la mida de l'embed (modifica la variable CSS --max-w)
-    document.querySelectorAll('.controls button').forEach(function(btn){
-      btn.addEventListener('click', function(){
-        document.querySelectorAll('.controls button').forEach(b=>b.classList.remove('active'));
-        this.classList.add('active');
-        var w = this.getAttribute('data-size');
-        document.documentElement.style.setProperty('--max-w', w + 'px');
-      });
-    });
-  </script>
+  // POSA AIXÒ DINS DEL TEU <script>
+document.querySelectorAll('.controls button').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    // 1. Treu el color negre del botó anterior i posa'l al nou
+    document.querySelectorAll('.controls button').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+
+    // 2. Canvia l'amplada (la variable --max-w)
+    var ample = this.getAttribute('data-size');
+    document.documentElement.style.setProperty('--max-w', ample + 'px');
+
+    // 3. CANVIA L'ALÇADA automàticament per evitar el blanc
+    // Fem servir el càlcul: ample x 0.82 (que és el que vol Micro:bit)
+    var novaAlçada = Math.round(ample * 0.82);
+    document.getElementById('sim-container').style.height = novaAlçada + 'px';
+  });
+});
 </body>
 </html>
